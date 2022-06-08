@@ -2,3 +2,9 @@ nav {
   display: flex;
   column-gap: 20px;
 }
+
+.homepage {
+  &__title {
+    font-size: 40px;
+  }
+}

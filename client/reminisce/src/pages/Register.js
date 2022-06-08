@@ -2,6 +2,7 @@ import React from "react";
 import { TextField, Button } from "@mui/material";
 import "./Register.scss";
 import { NavLink } from "react-router-dom";
+import "./Register.scss";
 
 export const Register = ({
   register,
@@ -11,11 +12,13 @@ export const Register = ({
   registerPasswordHandler,
 }) => {
   return (
-    <div>
-      <h1>Register</h1>
+    <div className="register">
       <NavLink to="/">Homepage</NavLink>
+
       <div className="form-wrapper">
         <form className="form" onSubmit={register}>
+          <h1 className="register__title">Register</h1>
+
           <TextField
             className="form__fields"
             onChange={firstnameHandler}

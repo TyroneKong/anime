@@ -6,11 +6,12 @@ import { NavLink } from "react-router-dom";
 
 export const Login = ({ emailHandler, passwordHandler, token, login }) => {
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="login">
       <NavLink to="/">Homepage</NavLink>
       <div className="form-wrapper">
         <form className="form" onSubmit={login}>
+          <h1 className="login__title">Login</h1>
+
           <TextField
             className="form__fields"
             onChange={emailHandler}

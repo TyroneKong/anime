@@ -9,9 +9,16 @@
   flex-direction: column;
   row-gap: 20px;
   &__fields {
-    width: 500px;
+    max-width: 100%;
   }
 }
 button {
   height: 50px;
+  max-width: 100%;
+}
+
+.login {
+  &__title {
+    font-size: 40px;
+  }
 }
