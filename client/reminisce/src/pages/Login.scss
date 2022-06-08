@@ -1,0 +1,17 @@
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 500px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  &__fields {
+    width: 500px;
+  }
+}
+button {
+  height: 50px;
+}
