@@ -2,7 +2,7 @@ import React from "react";
 import { TextField, Button } from "@mui/material";
 import { Navigate } from "react-router-dom";
 import "./Login.scss";
-import { NavLink, Router } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const Login = ({ emailHandler, passwordHandler, token, login }) => {
   return (

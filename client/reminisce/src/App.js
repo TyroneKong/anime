@@ -6,7 +6,7 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { PersonalisedPage } from "./pages/PersonalisedPage";
 import axios from "axios";
-import { Outlet } from "react-router";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const [firstname, setFirstname] = useState("");
@@ -48,12 +48,10 @@ function App() {
 
   const registerEmailHandler = (e) => {
     setRegisterEmail(e.target.value);
-    console.log(e.target.value);
   };
 
   const registerPasswordHandler = (e) => {
     setRegisterPassword(e.target.value);
-    console.log(e.target.value);
   };
 
   const useAuth = () => {
@@ -80,42 +78,40 @@ function App() {
     setValidPwd(result);
   }, [registerPassword]);
 
-  const login = (e) => {
+  const login = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8001/login", {
-        email: email,
-        password: password,
-      })
-      .then((response) => {
-        console.log(response);
-        setUser(response?.data);
-        setToken(response?.data?.token);
-        setValidUser(true);
-        localStorage.setItem("token", response.data.token);
-        console.log(localStorage.token);
-      })
-      .catch((error) => {
-        console.log(error);
+
+    try {
+      const response = await axios.post("http://localhost:8001/login", {
+        email,
+        password,
       });
+      console.log(response);
+      setUser(response?.data);
+      setToken(response?.data?.token);
+      setValidUser(true);
+      localStorage.setItem("token", response.data.token);
+      console.log(localStorage.token);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const register = (e) => {
+  const register = async (e) => {
     e.preventDefault();
     console.log(registerEmail, registerPassword);
-    axios
-      .post("http://localhost:8001/register", {
+
+    try {
+      const response = await axios.post("http://localhost:8001/register", {
         first_name: firstname,
         last_name: lastname,
         email: registerEmail,
         password: registerPassword,
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
       });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
