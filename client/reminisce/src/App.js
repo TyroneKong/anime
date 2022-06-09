@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Homepage } from "./pages/Homepage";
 import { Login } from "./pages/Login";
@@ -18,6 +18,15 @@ function App() {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [validUser, setValidUser] = useState(false);
+
+  // only valid 4-24 characters alpha numeric
+  const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+
+  // only uppercase, alphanumeric with special characters
+  const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%_]).{8,24}$/;
+
+  // check valid email
+  const EMAIL_REGEX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 
   const emailHandler = (e) => {
     setEmail(e.target.value);
@@ -55,9 +64,21 @@ function App() {
     return isAuth ? <Outlet /> : <Login />;
   };
 
+  // return a boolean
+
+  useEffect(() => {
+    const result = EMAIL_REGEX.test(registerEmail);
+
+    console.log(result);
+  }, [registerEmail]);
+
+  useEffect(() => {
+    const result = PWD_REGEX.test(registerPassword);
+    console.log(result);
+  }, [registerPassword]);
+
   const login = (e) => {
     e.preventDefault();
-    console.log(email, password);
     axios
       .post("http://localhost:8001/login", {
         email: email,
@@ -65,9 +86,11 @@ function App() {
       })
       .then((response) => {
         console.log(response);
-        setUser(response.data);
-        setToken(response.data.token);
+        setUser(response?.data);
+        setToken(response?.data?.token);
         setValidUser(true);
+        localStorage.setItem("token", response.data.token);
+        console.log(localStorage.token);
       })
       .catch((error) => {
         console.log(error);

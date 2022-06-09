@@ -9,13 +9,15 @@ export const SearchEngine = () => {
   const [userInput, setUserInput] = useState("");
   const baseURL = "http://localhost:8001/anime/";
 
-  const getAnime = (e) => {
+  const getAnime = async (e) => {
     e.preventDefault();
-
-    axios.get(`${baseURL}${userInput}`).then((response) => {
+    try {
+      const response = await axios.get(`${baseURL}${userInput}`);
       setData(response?.data?.data);
       console.log(response?.data?.data);
-    });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleInput = (e) => {
