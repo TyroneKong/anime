@@ -3,6 +3,9 @@ const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 
+// middleware
+
+// create a new token
 const createToken = (user) => {
   const token = jwt.sign({ user_id: user._id, email }, process.env.TOKEN_KEY, {
     expiresIn: "15s",
@@ -10,7 +13,7 @@ const createToken = (user) => {
   return token;
 };
 
-//middleware
+//verify token
 const verifyToken = (req, res, next) => {
   const accessToken = req.cookies["access-token"];
 

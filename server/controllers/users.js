@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs/dist/bcrypt");
 let User = require("../models/users.model");
 const jwt = require("jsonwebtoken");
 
+//controller to register user
 exports.registerUser = async (req, res) => {
   try {
     const { first_name, last_name, email, password } = req.body;
@@ -43,18 +44,21 @@ exports.personal = (req, res) => {
   res.status(200).send(`User:${first_name} authenticated`);
 };
 
+//controller to login user
 exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+    // if no email and password in body
     if (!(email && password)) {
       res.status(400).send("All input is required!");
     }
-
+    // locate user by email
     const user = await User.findOne({ email });
-
+    console.log(user.password);
+    // hash the password
     const hashedPassword = user.password;
 
+    //compare the hashed password to the one user is providing in the body and see if they match
     bcrypt.compare(password, hashedPassword).then((match) => {
       if (!match) {
         res
