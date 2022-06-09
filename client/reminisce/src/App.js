@@ -18,6 +18,8 @@ function App() {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [validUser, setValidUser] = useState(false);
+  const [validEmail, setValidEmail] = useState(false);
+  const [validPwd, setValidPwd] = useState(false);
 
   // only valid 4-24 characters alpha numeric
   const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -68,13 +70,14 @@ function App() {
 
   useEffect(() => {
     const result = EMAIL_REGEX.test(registerEmail);
-
+    setValidEmail(result);
     console.log(result);
   }, [registerEmail]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(registerPassword);
     console.log(result);
+    setValidPwd(result);
   }, [registerPassword]);
 
   const login = (e) => {
@@ -128,6 +131,8 @@ function App() {
               lastnameHandler={lastnameHandler}
               registerEmailHandler={registerEmailHandler}
               registerPasswordHandler={registerPasswordHandler}
+              validEmail={validEmail}
+              validPwd={validPwd}
             />
           }
         />

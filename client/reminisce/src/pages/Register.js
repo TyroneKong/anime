@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import "./Register.scss";
 import { NavLink } from "react-router-dom";
 import "./Register.scss";
+import {
+  faCheck,
+  faTimes,
+  faInfoCircle,
+  faDiagramSuccessor,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Register = ({
   register,
@@ -10,7 +17,12 @@ export const Register = ({
   lastnameHandler,
   registerEmailHandler,
   registerPasswordHandler,
+  validEmail,
+  validPwd,
 }) => {
+  console.log(validPwd);
+  const [pwdFocus, setPwdFocus] = useState(false);
+
   return (
     <div className="register">
       <NavLink to="/">Homepage</NavLink>
@@ -29,16 +41,42 @@ export const Register = ({
             onChange={lastnameHandler}
             label="Last Name"
           ></TextField>
+
+          <span className={validEmail ? "valid" : "hide"}>
+            <FontAwesomeIcon icon={faCheck} />
+          </span>
           <TextField
             className="form__fields"
             onChange={registerEmailHandler}
             label="Email"
           ></TextField>
+          <span className={validPwd ? "valid" : "hide"}>
+            <FontAwesomeIcon icon={faCheck} />
+          </span>
           <TextField
             className="form__fields"
             onChange={registerPasswordHandler}
             label="Password"
+            onFocus={() => setPwdFocus(true)}
+            onBlur={() => setPwdFocus(false)}
           ></TextField>
+          <p className={pwdFocus && !validPwd ? "error" : "offscreen"}>
+            <span>
+              8 to 24 characters.
+              <br />
+              must include uppercase and lowercase letters, a number and a
+              special character.
+              <br />
+              <span>Allowed special characters:@</span>{" "}
+              <span aria-label="exclamtion mark">!</span>
+              <span aria-label="hashtag">#</span>
+              <span aria-label="pound sign">£</span>
+              <span aria-label="dollar sign">$</span>
+              <span aria-label="percent">%</span>
+              <span aria-label="underscore">_</span>
+            </span>
+          </p>
+
           <Button type="submit" variant="contained">
             Register
           </Button>

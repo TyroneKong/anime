@@ -5,3 +5,28 @@
     font-size: 40px;
   }
 }
+
+.error {
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  color: red;
+  padding: 0.25rem;
+  position: relative;
+  bottom: -10px;
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+.valid {
+  color: limegreen;
+  position: relative;
+  left: 230px;
+  top: 50px;
+}
+
+.hide {
+  display: none;
+}
