@@ -3,12 +3,8 @@ import { TextField, Button } from "@mui/material";
 import "./Register.scss";
 import { NavLink } from "react-router-dom";
 import "./Register.scss";
-import {
-  faCheck,
-  faTimes,
-  faInfoCircle,
-  faDiagramSuccessor,
-} from "@fortawesome/free-solid-svg-icons";
+
+import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Register = ({

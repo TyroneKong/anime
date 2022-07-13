@@ -7,6 +7,7 @@ import { Register } from "./pages/Register";
 import { PersonalisedPage } from "./pages/PersonalisedPage";
 import axios from "axios";
 import { Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [firstname, setFirstname] = useState("");
@@ -20,7 +21,6 @@ function App() {
   const [validUser, setValidUser] = useState(false);
   const [validEmail, setValidEmail] = useState(false);
   const [validPwd, setValidPwd] = useState(false);
-
   // only valid 4-24 characters alpha numeric
   const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 
@@ -54,6 +54,7 @@ function App() {
     setRegisterPassword(e.target.value);
   };
 
+  // custom hook valid user
   const useAuth = () => {
     const user = validUser;
     return user;
@@ -64,17 +65,19 @@ function App() {
     return isAuth ? <Outlet /> : <Login />;
   };
 
+  const navigate = useNavigate();
+
   // return a boolean
 
   useEffect(() => {
     const result = EMAIL_REGEX.test(registerEmail);
     setValidEmail(result);
-  }, [registerEmail]);
+  }, [registerEmail, EMAIL_REGEX]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(registerPassword);
     setValidPwd(result);
-  }, [registerPassword]);
+  }, [registerPassword, PWD_REGEX]);
 
   const login = async (e) => {
     e.preventDefault();
@@ -106,6 +109,7 @@ function App() {
         email: registerEmail,
         password: registerPassword,
       });
+      navigate("/login");
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -146,8 +150,14 @@ function App() {
         />
         <Route element={<ProtectedRoutes />}>
           <Route
-            path="/login/personalisedPage"
-            element={<PersonalisedPage user={user} />}
+            path="/personalised"
+            element={
+              <PersonalisedPage
+                user={user}
+                setValidUser={setValidUser}
+                validUser={validUser}
+              />
+            }
           />
         </Route>
       </Routes>

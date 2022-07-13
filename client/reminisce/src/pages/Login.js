@@ -3,8 +3,11 @@ import { TextField, Button } from "@mui/material";
 import { Navigate } from "react-router-dom";
 import "./Login.scss";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const Login = ({ emailHandler, passwordHandler, token, login }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="login">
       <NavLink to="/">Homepage</NavLink>
@@ -30,7 +33,7 @@ export const Login = ({ emailHandler, passwordHandler, token, login }) => {
             Login
           </Button>
 
-          {token ? <Navigate to="personalisedPage" /> : null}
+          {token ? <Navigate to="/personalised" /> : null}
         </form>
       </div>
     </div>
