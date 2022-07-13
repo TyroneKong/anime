@@ -20,8 +20,8 @@ export const Register = ({
   validEmail,
   validPwd,
 }) => {
-  console.log(validPwd);
   const [pwdFocus, setPwdFocus] = useState(false);
+  const [emailFocus, setEmailFocus] = useState(false);
 
   return (
     <div className="register">
@@ -45,10 +45,15 @@ export const Register = ({
           <span className={validEmail ? "valid" : "hide"}>
             <FontAwesomeIcon icon={faCheck} />
           </span>
+          <span className={emailFocus && !validEmail ? "invalid" : "hide"}>
+            <FontAwesomeIcon icon={faTimes} />
+          </span>
           <TextField
             className="form__fields"
             onChange={registerEmailHandler}
             label="Email"
+            onFocus={() => setEmailFocus(true)}
+            onBlur={() => setEmailFocus(false)}
           ></TextField>
           <span className={validPwd ? "valid" : "hide"}>
             <FontAwesomeIcon icon={faCheck} />

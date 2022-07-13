@@ -26,7 +26,7 @@ export const Login = ({ emailHandler, passwordHandler, token, login }) => {
             required
           ></TextField>
 
-          <Button type="submit" variant="contained">
+          <Button className="button" type="submit" variant="contained">
             Login
           </Button>
 

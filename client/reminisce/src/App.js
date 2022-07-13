@@ -69,12 +69,10 @@ function App() {
   useEffect(() => {
     const result = EMAIL_REGEX.test(registerEmail);
     setValidEmail(result);
-    console.log(result);
   }, [registerEmail]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(registerPassword);
-    console.log(result);
     setValidPwd(result);
   }, [registerPassword]);
 
