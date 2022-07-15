@@ -29,6 +29,7 @@ export const Login = ({ emailHandler, passwordHandler, token, login }) => {
             onChange={passwordHandler}
             label="Password"
             autoComplete="off"
+            type="password"
             required
           ></TextField>
 
