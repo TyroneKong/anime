@@ -13,21 +13,23 @@ const createToken = (user) => {
   return token;
 };
 
-//verify token
+//verify token middleware
 const verifyToken = (req, res, next) => {
-  const accessToken = req.cookies["access-token"];
-
-  if (!accessToken)
+  const { accesstoken } = req.body;
+  console.log(accesstoken);
+  console.log("verify stage");
+  // edge case
+  if (!accesstoken)
     return res.status(400).json({ error: "User not authenticated" });
 
   try {
-    const validToken = verify(accessToken, process.env.TOKEN_KEY);
+    const validToken = verify(accesstoken, process.env.TOKEN_KEY);
     if (validToken) {
       req.authenticated = true;
       return next();
     }
   } catch (error) {
-    return res.status(400).json({ error: error });
+    console.log(error);
   }
 };
 

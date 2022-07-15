@@ -7,6 +7,7 @@ import "./SearchEngine.scss";
 export const SearchEngine = () => {
   const [data, setData] = useState(null);
   const [userInput, setUserInput] = useState("");
+
   const baseURL = "http://localhost:8001/anime/";
 
   const getAnime = async (e) => {

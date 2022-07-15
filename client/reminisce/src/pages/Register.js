@@ -21,7 +21,11 @@ export const Register = ({
 
   return (
     <div className="register">
-      <NavLink to="/">Homepage</NavLink>
+      <nav className="register__nav">
+        <NavLink to="/">Homepage</NavLink>
+
+        <NavLink to="/login">Login</NavLink>
+      </nav>
 
       <div className="form-wrapper">
         <form className="form" onSubmit={register}>
@@ -60,6 +64,7 @@ export const Register = ({
             label="Password"
             onFocus={() => setPwdFocus(true)}
             onBlur={() => setPwdFocus(false)}
+            disabled={!validEmail ? true : false}
           ></TextField>
           <p className={pwdFocus && !validPwd ? "error" : "offscreen"}>
             <span>

@@ -8,12 +8,18 @@ const userRoutes = require("./routes/user");
 const cookieParser = require("cookie-parser");
 const animeRoutes = require("./routes/anime");
 
+app.use(cors({ origin: "http://localhost:3001", credentials: true }));
 app.use(cookieParser());
+
 app.use(express.json());
-app.use(cors());
 
 app.use("/", userRoutes);
 app.use("/", animeRoutes);
+
+app.post("/cookie", (req, res) => {
+  res.cookie("test", "cookie");
+  res.json("cookie has been set");
+});
 
 const URI = process.env.URI;
 

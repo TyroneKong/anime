@@ -10,7 +10,10 @@ export const Login = ({ emailHandler, passwordHandler, token, login }) => {
 
   return (
     <div className="login">
-      <NavLink to="/">Homepage</NavLink>
+      <nav>
+        <NavLink to="/">Homepage</NavLink>
+        <NavLink to="/register">Register</NavLink>
+      </nav>
       <div className="form-wrapper">
         <form className="form" onSubmit={login}>
           <h1 className="login__title">Login</h1>

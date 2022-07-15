@@ -5,9 +5,13 @@ import { Homepage } from "./pages/Homepage";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { PersonalisedPage } from "./pages/PersonalisedPage";
+import NotAuth from "./pages/NotAuth";
 import axios from "axios";
 import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
+
+// axios.defaults.withCredentials = true;
 
 function App() {
   const [firstname, setFirstname] = useState("");
@@ -21,6 +25,7 @@ function App() {
   const [validUser, setValidUser] = useState(false);
   const [validEmail, setValidEmail] = useState(false);
   const [validPwd, setValidPwd] = useState(false);
+
   // only valid 4-24 characters alpha numeric
   const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 
@@ -62,6 +67,7 @@ function App() {
 
   const ProtectedRoutes = () => {
     const isAuth = useAuth();
+
     return isAuth ? <Outlet /> : <Login />;
   };
 
@@ -79,6 +85,11 @@ function App() {
     setValidPwd(result);
   }, [registerPassword, PWD_REGEX]);
 
+  useEffect(() => {
+    isAuthenticated();
+  }, [token]);
+
+  //login user
   const login = async (e) => {
     e.preventDefault();
 
@@ -87,20 +98,19 @@ function App() {
         email,
         password,
       });
+
       console.log(response);
+
       setUser(response?.data);
       setToken(response?.data?.token);
-      setValidUser(true);
       localStorage.setItem("token", response.data.token);
-      console.log(localStorage.token);
     } catch (error) {
       console.log(error);
     }
   };
-
+  // register user
   const register = async (e) => {
     e.preventDefault();
-    console.log(registerEmail, registerPassword);
 
     try {
       const response = await axios.post("http://localhost:8001/register", {
@@ -109,7 +119,21 @@ function App() {
         email: registerEmail,
         password: registerPassword,
       });
+
       navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const isAuthenticated = async () => {
+    try {
+      const response = await axios.post("http://localhost:8001/personal", {
+        first_name: firstname,
+        accesstoken: localStorage.getItem("token"),
+      });
+
+      response.status === 200 && setValidUser(true);
       console.log(response);
     } catch (error) {
       console.log(error);

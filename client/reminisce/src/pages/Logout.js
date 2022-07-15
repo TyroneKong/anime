@@ -1,12 +1,14 @@
 import React from "react";
 import { Button } from "@mui/material";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 const Logout = ({ setValidUser }) => {
+  //function to logout
+  const navigate = useNavigate();
   const logout = () => {
     setValidUser(false);
-
-    <Navigate to="/login" />;
+    navigate("/");
     window.localStorage.clear();
     window.localStorage.removeItem("token");
   };
