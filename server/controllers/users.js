@@ -26,7 +26,6 @@ exports.registerUser = async (req, res) => {
         email: email.toLowerCase(),
         password: encryptedPassword,
       });
-      console.log(user);
 
       //create a token
       const token = jwt.sign(

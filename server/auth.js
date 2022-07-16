@@ -24,6 +24,7 @@ const verifyToken = (req, res, next) => {
 
   try {
     const validToken = verify(accesstoken, process.env.TOKEN_KEY);
+
     if (validToken) {
       req.authenticated = true;
       return next();

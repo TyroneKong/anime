@@ -85,9 +85,9 @@ function App() {
     setValidPwd(result);
   }, [registerPassword, PWD_REGEX]);
 
-  useEffect(() => {
-    isAuthenticated();
-  }, [token]);
+  // useEffect(() => {
+  //   isAuthenticated();
+  // }, [token]);
 
   //login user
   const login = async (e) => {
@@ -104,6 +104,7 @@ function App() {
       setUser(response?.data);
       setToken(response?.data?.token);
       localStorage.setItem("token", response.data.token);
+      isAuthenticated();
     } catch (error) {
       console.log(error);
     }
